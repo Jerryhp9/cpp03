@@ -10,8 +10,9 @@ int main(void)
 	bob.attack("Timmy");
 	Timmy.takeDamage(bob.getstats("Attack_damage"));
 	std::cout << "Timmy's hitpoints: " << Timmy.getstats("Hitpoints") << std::endl;
-	Timmy.announce_attack("Bob");
+	Timmy.attack("Bob");
 	bob.takeDamage(Timmy.getstats("Attack_damage"));
+	Timmy.beRepaired(10);
 	std::cout << "bob's hitpoints: " << bob.getstats("Hitpoints") << std::endl;
 	bob.beRepaired(20);
 	std::cout << "bob's hitpoints: " << bob.getstats("Hitpoints") << std::endl;

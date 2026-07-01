@@ -1,16 +1,14 @@
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap(std::string str) {
-	Name = str;
-	Hitpionts = 10;
-	Energy_points = 10;
-	Attack_damage = 0;
+ClapTrap::ClapTrap(std::string str)
+	:	Name(str), Hitpoints(10), Energy_points(10), Attack_damage(0), Type("ClapTrap")
+{
 	std::cout << "ClapTrap Default constructor called" << std::endl;
 }
 
 ClapTrap::ClapTrap(const ClapTrap& other) {
 	Name = other.Name;
-	Hitpionts = 10;
+	Hitpoints = 10;
 	Energy_points = 10;
 	Attack_damage = 0;
 	std::cout << "Copy constructor called" << std::endl;
@@ -21,7 +19,7 @@ ClapTrap&	ClapTrap::operator=(const ClapTrap& other) {
 	if (this != &other)
 	{
 		this->Name = other.Name;
-		this->Hitpionts = other.Hitpionts;
+		this->Hitpoints = other.Hitpoints;
 		this->Energy_points = other.Energy_points;
 		this->Attack_damage = other.Attack_damage;
 	}
@@ -32,52 +30,48 @@ ClapTrap::~ClapTrap() {
 	std::cout << "ClapTrap Destructor called" << std::endl;
 }
 
-int	ClapTrap::attack() {
-	if (Hitpionts <= 0 || Energy_points <= 0)
-		return (1);
+void	ClapTrap::attack(const std::string& target) {
+	if (Hitpoints <= 0 || Energy_points <= 0)
+	{
+		std::cout << Type << " " << Name << " unable to attack" << std::endl;
+		return ;
+	}
 	Energy_points--;
-	return (0);
-}
-
-void	ClapTrap::announce_attack(const std::string& target) {
-	int	sign = attack();
-	if (sign == 1)
-		std::cout << "ClapTrap" << Name << " unable to attack" << std::endl;
-	else
-		std::cout << "ClapTrap " << Name << " attacks " << target << " causing " << Attack_damage << " points of damage!" << std::endl;
+	std::cout << Type << " " << Name << " attacks " << target << " causing " << Attack_damage << " points of damage!" << std::endl;
 }
 
 void	ClapTrap::takeDamage(unsigned int amount) {
-	if (Hitpionts <= 0)
+	if (Hitpoints <= 0)
 	{
-		std::cout << "Claptrap" << Name << " couldn't take damage anymore" << std::endl;
+		std::cout << Type << " " << Name << " couldn't take damage anymore" << std::endl;
 		return ;
 	}
-	if (amount < (unsigned int)Hitpionts)
+	if (amount < (unsigned int)Hitpoints)
 	{
-		std::cout << "ClapTrap " << Name << " took " << amount << " damage" << std::endl;
-		Hitpionts -= amount;
+		std::cout << Type << " " << Name << " took " << amount << " damage" << std::endl;
+		Hitpoints -= amount;
 	}
 	else
 	{
-		Hitpionts -= amount;
-		std::cout << "ClapTrap " << Name << " died" << std::endl;
+		Hitpoints -= amount;
+		std::cout << Type << " " << Name << " died" << std::endl;
 	}
 }
 
 void	ClapTrap::beRepaired(unsigned int amount) { //learn how to change claptrap to scavtrap
-	if (Hitpionts <= 0 || Energy_points <= 0)
+	if (Hitpoints <= 0 || Energy_points <= 0)
 	{
-		std::cout << "ClapTrap " << Name << " unable to repair" << std::endl;
+		std::cout << Type << " " << Name << " unable to repair" << std::endl;
 		return;
 	}
-	Hitpionts += amount;
-	std::cout << "ClapTrap " << Name << " repaired " << amount << " Hitpoints" << std::endl;
+	Hitpoints += amount;
+	Energy_points--;
+	std::cout << Type << " " << Name << " repaired " << amount << " Hitpoints" << std::endl;
 }
 
 int	ClapTrap::getstats(std::string type) {
 	if (type.compare("Hitpoints") == 0)
-		return (Hitpionts);
+		return (Hitpoints);
 	else if (type.compare("Attack_damage") == 0)
 		return (Attack_damage);
 	return (Energy_points);
