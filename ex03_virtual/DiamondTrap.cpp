@@ -1,18 +1,21 @@
 #include "DiamondTrap.hpp"
 
-DiamondTrap::DiamondTrap(std::string str) : ClapTrap(str + "_clap_name"), ScavTrap(str), FragTrap(str), Name(str) {
-	Hitpoints = FragTrap::Hitpoints;
-	Energy_points = ScavTrap::Energy_points;
-	Attack_damage = FragTrap::Attack_damage;
+DiamondTrap::DiamondTrap(std::string str) : ClapTrap(str + "_clap_name"), ScavTrap(str), FragTrap(str), _Name(str) {
+	_Hitpoints = FragTrap::_Hitpoints;
+	_Energy_points = 50;
+	_Attack_damage = FragTrap::_Attack_damage;
+	_Type = "DiamondTrap";
 
 	std::cout << "DiamondTrap constructor called" << std::endl;
+	std::cout << "ScavTrap energy point: " << ScavTrap::_Energy_points << std::endl;
 }
 
 DiamondTrap::DiamondTrap(const DiamondTrap& other) : ClapTrap(other), ScavTrap(other), FragTrap(other) {
-	Name = other.Name;
-	Hitpoints = other.Hitpoints;
-	Energy_points = other.Energy_points;
-	Attack_damage = other.Attack_damage;
+	_Name = other._Name;
+	_Hitpoints = other._Hitpoints;
+	_Energy_points = other._Energy_points;
+	_Attack_damage = other._Attack_damage;
+	_Type = other._Type;
 	std::cout << "DiamondTrap Copy constructor called" << std::endl;
 }
 
@@ -20,10 +23,11 @@ DiamondTrap&	DiamondTrap::operator=(const DiamondTrap& other) {
 	std::cout << "DiamondTrap Copy assignment operator called" << std::endl;
 	if (this != &other)
 	{
-		this->Name = other.Name;
-		this->Hitpoints = other.Hitpoints;
-		this->Energy_points = other.Energy_points;
-		this->Attack_damage = other.Attack_damage;
+		this->_Name = other._Name;
+		this->_Hitpoints = other._Hitpoints;
+		this->_Energy_points = other._Energy_points;
+		this->_Attack_damage = other._Attack_damage;
+		this->_Type = other._Type;
 	}
 	return (*this);
 }
@@ -37,6 +41,6 @@ void	DiamondTrap::attack(const std::string& target) {
 }
 
 void	DiamondTrap::whoAmI() {
-	std::cout << "My name is " << Name << std::endl;
-	std::cout << "My name is also " << ClapTrap::Name << std::endl;
+	std::cout << _Type << " " << _Name << " said \"My name is " << _Name << "\"" << std::endl;
+	std::cout << _Type << " " << _Name << " said \"My name is also " << ClapTrap::_Name  << "\"" << std::endl;
 }

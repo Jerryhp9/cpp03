@@ -3,24 +3,27 @@
 
 int main(void)
 {
-	std::cout << "--- create ScavTrap ---" << std::endl;
+	std::cout << "--- create Traps ---" << std::endl;
 	FragTrap John("John");
 	ScavTrap bob("Bob");
 	ClapTrap Timmy("Timmy");
 
 	std::cout << "--- test attack ---" << std::endl;
 	bob.attack("Timmy");
-	Timmy.takeDamage(bob.getstats("Attack_damage"));
-	std::cout << "Timmy's hitpoints: " << Timmy.getstats("Hitpoints") << std::endl;
+	Timmy.takeDamage(bob.getstats("_Attack_damage"));
+	std::cout << "Timmy's hitpoints: " << Timmy.getstats("_Hitpoints") << std::endl;
 	Timmy.attack("Bob");
-	bob.takeDamage(Timmy.getstats("Attack_damage"));
+	bob.takeDamage(Timmy.getstats("_Attack_damage"));
 	Timmy.beRepaired(10);
-	std::cout << "bob's hitpoints: " << bob.getstats("Hitpoints") << std::endl;
+	std::cout << "bob's hitpoints: " << bob.getstats("_Hitpoints") << std::endl;
 	bob.beRepaired(20);
-	std::cout << "bob's hitpoints: " << bob.getstats("Hitpoints") << std::endl;
-	std::cout << "John's hitpoints " << John.getstats("Hitpoints") << std::endl;
-	std::cout << "John's energy points " << John.getstats("Energy_points") << std::endl;
-	std::cout << "John's attack damage " << John.getstats("Attack_damage") << std::endl;
+	John.attack("Bob");
+	bob.takeDamage(John.getstats("_Attack_damage"));
+	John.beRepaired(50);
+	std::cout << "bob's hitpoints: " << bob.getstats("_Hitpoints") << std::endl;
+	std::cout << "John's hitpoints " << John.getstats("_Hitpoints") << std::endl;
+	std::cout << "John's energy points " << John.getstats("_Energy_points") << std::endl;
+	std::cout << "John's attack damage " << John.getstats("_Attack_damage") << std::endl;
 
 	std::cout << "--- test gate keeper mode and highfive ---" << std::endl;
 	bob.guardGate();
